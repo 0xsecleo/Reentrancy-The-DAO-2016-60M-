@@ -8,3 +8,4 @@ fix(vault): enforce checks-effects-interactions + add ReentrancyGuard
 Ref: The DAO exploit (June 2016, ~$60M drained / 3.6M ETH)
 Root cause: external call (msg.sender.call.value()) executed BEFORE
 internal balance was set to zero, allowing recursive withdrawal.
+Access Control — Parity Multisig Freeze (2017, $280M frozen)
