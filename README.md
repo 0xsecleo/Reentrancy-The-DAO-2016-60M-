@@ -46,3 +46,4 @@ Root cause: Solana program used a deprecated signature-verification
 instruction that didn't actually confirm the signatures matched the
 claimed guardian set, letting attacker forge a valid-looking mint
 authorization.
+What happened: The attacker spoofed a "guardian signature" verification step, tricking the bridge into believing 19/20 valid guardians had signed off on minting 120,000 wETH — with no real collateral locked.
