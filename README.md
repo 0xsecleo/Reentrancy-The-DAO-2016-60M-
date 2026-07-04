@@ -49,3 +49,4 @@ authorization.
 What happened: The attacker spoofed a "guardian signature" verification step, tricking the bridge into believing 19/20 valid guardians had signed off on minting 120,000 wETH — with no real collateral locked.
 Root cause: A legacy verification function was still callable and didn't strictly bind the signature check to the current, real guardian set.
 Fix: Remove/deprecate old verification code paths entirely rather than leaving them reachable. Pin signature verification to the canonical, currently-active signer set with no fallback paths.
+Base takeaway: "We deprecated that function" is not the same as "that function can't be called." Dead code with live permissions is a live vulnerability. Audit for reachable legacy paths, not just your current logic.
