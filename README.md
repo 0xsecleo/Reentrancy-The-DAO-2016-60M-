@@ -21,3 +21,4 @@ Fix: Never leave initializer functions unprotected. Avoid selfdestruct in shared
 Base takeaway: If you're using proxy patterns (very common for Base apps to stay upgradeable), audit your implementation contract's constructor and initializer separately from the proxy — this exact bug class reappears every year in new clothes.
 Oracle Manipulation — bZx Flash Loan Attacks (2020, ~$8M combined)
 Root cause: Trusting a single, manipulable, single-block price source.
+Fix: Use time-weighted average prices (TWAP), aggregate multiple independent oracles (e.g., Chainlink + a DEX TWAP), and add circuit breakers for abnormal price deltas.
