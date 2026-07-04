@@ -9,3 +9,9 @@ Ref: The DAO exploit (June 2016, ~$60M drained / 3.6M ETH)
 Root cause: external call (msg.sender.call.value()) executed BEFORE
 internal balance was set to zero, allowing recursive withdrawal.
 Access Control — Parity Multisig Freeze (2017, $280M frozen)
+fix(library): restrict initializer + remove public selfdestruct
+
+Ref: Parity Multisig Wallet freeze (Nov 2017, ~$280M locked forever)
+Root cause: shared library contract left uninitialized; anyone called
+initWallet() to become "owner," then invoked selfdestruct() on the
+library, bricking every wallet that delegatecalled into it.
