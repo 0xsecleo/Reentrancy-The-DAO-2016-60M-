@@ -19,3 +19,5 @@ What happened: A user accidentally became "owner" of the shared library contract
 Root cause: Missing access control on initialization + a delegatecall dependency on a mutable, killable library.
 Fix: Never leave initializer functions unprotected. Avoid selfdestruct in shared/library contracts. Use OpenZeppelin's Initializable with _disableInitializers() in the constructor.
 Base takeaway: If you're using proxy patterns (very common for Base apps to stay upgradeable), audit your implementation contract's constructor and initializer separately from the proxy — this exact bug class reappears every year in new clothes.
+Oracle Manipulation — bZx Flash Loan Attacks (2020, ~$8M combined)
+Root cause: Trusting a single, manipulable, single-block price source.
