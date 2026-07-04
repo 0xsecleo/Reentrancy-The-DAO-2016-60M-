@@ -23,3 +23,13 @@ Oracle Manipulation — bZx Flash Loan Attacks (2020, ~$8M combined)
 Root cause: Trusting a single, manipulable, single-block price source.
 Fix: Use time-weighted average prices (TWAP), aggregate multiple independent oracles (e.g., Chainlink + a DEX TWAP), and add circuit breakers for abnormal price deltas.
 Base takeaway: This is arguably THE flash-loan-era lesson. Any lending, perps, or liquidation logic on Base must never read price from a single spot pool it can be manipulated within the same transaction.
+Cross-Chain Bridge — Poly Network (2021, $611M)
+fix(bridge): restrict keeper role, add multi-sig verification on
+cross-chain message execution
+
+Ref: Poly Network exploit (Aug 2021, $611M — largest DeFi hack ever
+at the time, later returned by the attacker)
+Root cause: the contract that verified cross-chain messages trusted
+a "keeper" address that could be changed by a spoofed cross-chain
+call to itself — attacker changed the keeper to their own address,
+then authorized unlimited withdrawals.
