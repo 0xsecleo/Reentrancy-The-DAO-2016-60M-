@@ -36,3 +36,4 @@ then authorized unlimited withdrawals.
 What happened: The attacker crafted a cross-chain message that tricked the bridge into changing its own trusted "keeper" role to an address they controlled, then drained assets across three chains.
 Root cause: The privileged role-change function was reachable through the same generic message-execution path as normal user transactions — no separate, more restrictive authorization for changing trust roots.
 Fix: Never let privileged/admin functions be reachable via generic external-call relays. Separate governance/role changes from user-facing message execution, and require multi-sig or timelock for any keeper/validator change.
+Base takeaway: Bridges are the highest-value attack surface in crypto. If you're building or integrating a bridge into Base, the question isn't "can users call this" — it's "what OTHER paths can reach this function."
