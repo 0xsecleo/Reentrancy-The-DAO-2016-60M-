@@ -22,3 +22,4 @@ Base takeaway: If you're using proxy patterns (very common for Base apps to stay
 Oracle Manipulation — bZx Flash Loan Attacks (2020, ~$8M combined)
 Root cause: Trusting a single, manipulable, single-block price source.
 Fix: Use time-weighted average prices (TWAP), aggregate multiple independent oracles (e.g., Chainlink + a DEX TWAP), and add circuit breakers for abnormal price deltas.
+Base takeaway: This is arguably THE flash-loan-era lesson. Any lending, perps, or liquidation logic on Base must never read price from a single spot pool it can be manipulated within the same transaction.
