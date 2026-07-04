@@ -17,3 +17,4 @@ initWallet() to become "owner," then invoked selfdestruct() on the
 library, bricking every wallet that delegatecalled into it.
 What happened: A user accidentally became "owner" of the shared library contract and called selfdestruct, permanently freezing every wallet built on top of it.
 Root cause: Missing access control on initialization + a delegatecall dependency on a mutable, killable library.
+Fix: Never leave initializer functions unprotected. Avoid selfdestruct in shared/library contracts. Use OpenZeppelin's Initializable with _disableInitializers() in the constructor.
