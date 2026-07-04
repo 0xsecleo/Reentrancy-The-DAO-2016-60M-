@@ -1,4 +1,4 @@
-# Reentrancy-The-DAO-2016-60M-
+5# Reentrancy-The-DAO-2016-60M-
 What happened: The attacker's fallback function re-entered the withdraw() function before the DAO contract updated the caller's balance, draining funds in a loop.
 Root cause: State mutation happened after the external call.
 Fix: Update state before external calls (CEI pattern), and/or use OpenZeppelin's ReentrancyGuard. Prefer .transfer()/call with gas limits or pull-payment patterns for value transfers.
@@ -37,3 +37,12 @@ What happened: The attacker crafted a cross-chain message that tricked the bridg
 Root cause: The privileged role-change function was reachable through the same generic message-execution path as normal user transactions — no separate, more restrictive authorization for changing trust roots.
 Fix: Never let privileged/admin functions be reachable via generic external-call relays. Separate governance/role changes from user-facing message execution, and require multi-sig or timelock for any keeper/validator change.
 Base takeaway: Bridges are the highest-value attack surface in crypto. If you're building or integrating a bridge into Base, the question isn't "can users call this" — it's "what OTHER paths can reach this function."
+Signature Verification — Wormhole Bridge (2022, $325M)
+fix(verify): require all guardian signatures to be validated against
+the CURRENT signer set, reject legacy/unverified sysvar accounts
+
+Ref: Wormhole bridge exploit (Feb 2022, $325M — 120,000 wrapped ETH)
+Root cause: Solana program used a deprecated signature-verification
+instruction that didn't actually confirm the signatures matched the
+claimed guardian set, letting attacker forge a valid-looking mint
+authorization.
